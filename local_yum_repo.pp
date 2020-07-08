@@ -11,7 +11,6 @@ class local_yum_repo {
   package { 'vim-enhanced':
     ensure => 'installed',
   }
-
 }
 
 node 'stapp01.stratos.xfusioncorp.com', 'stapp02.stratos.xfusioncorp.com', 'stapp03.stratos.xfusioncorp.com' {
