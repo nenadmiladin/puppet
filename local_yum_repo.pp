@@ -6,7 +6,7 @@ class local_yum_repo {
     descr    => 'Local repo holding company application packages',
     baseurl  => 'file:///packages/downloaded_rpms',
     enabled  => 1,
-	  gpgcheck => 0,
+    gpgcheck => 0,
   }
   package { 'vim-enhanced':
     ensure => 'installed',
