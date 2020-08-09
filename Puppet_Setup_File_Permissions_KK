@@ -1,0 +1,29 @@
+# The Nautilus DevOps team has put data on all app servers in Stratos DC. jump host is configured as Puppet master server, 
+# and all app servers are already been configured as Puppet agent nodes. 
+# The team needs to update content of some of the exiting files as well as update its permissions, etc. 
+# Please find below more details about the task:
+# Create a Puppet programming file demo.pp under /etc/puppetlabs/code/environments/production/manifests directory on master node i.e Jump Server. 
+# Using puppet file resource, perform the below mentioned tasks.
+# 1.	File news.txt already exists under /opt/sysops directory on App Server 2.
+# 2.	Add content Welcome to xFusionCorp Industries! in file news.txt on App Server 2.
+# 3.	Set permissions 0777 for file news.txt on App Server 2.
+# Note: Please perform this task using demo.pp only, do not create any separate inventory file.
+
+
+# sh-4.2# /opt/puppetlabs/bin/puppetserver ca list --all
+# Signed Certificates:
+#    stapp02.stratos.xfusioncorp.com     (SHA256)  E4:45:E3:D7:DC:D2:A4:65:E5:30:80:04:89:30:6E:6C:11:F4:9A:FE:FF:3E:86:7B:78:68:C7:99:B1:96:0D:F7
+#    jump_host.stratos.xfusioncorp.com   (SHA256)  0F:FD:98:0A:3A:9A:FE:BB:C4:03:97:01:4E:C9:1F:8C:00:A5:86:F6:1D:BD:68:BC:02:5A:DD:BE:51:56:C6:F4     alt names: ["DNS:puppet", "DNS:jump_host.stratos.xfusioncorp.com"]
+    
+class add_content {
+  file {'/opt/sysops/news.txt':
+    ensure => present,
+    mode => '0777',
+    content => "Welcome to xFusionCorp Industries!",
+    }
+}
+
+node 'stapp02.stratos.xfusioncorp.com' {
+  include add_content
+}
+
