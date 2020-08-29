@@ -9,7 +9,6 @@ Note: Please perform this task using media.pp only, do not create any separate i
 
 
 class httpd {
-
   package { 'httpd':
     ensure => 'installed',
   }
