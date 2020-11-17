@@ -1,0 +1,27 @@
+There is some data on app server 1 in Stratos DC. The Nautilus development team shared some requirement with the DevOps team to alter some of the data as per recent changes. 
+The DevOps team is working to prepare a Puppet programming file to accomplish the same. Below you can find more details about the task.
+
+Create a puppet programming file apps.pp under /etc/puppetlabs/code/environments/production/manifests directory on puppet master node 
+i.e Jump Server and by using puppet file_line resource perform below mentioned tasks.
+
+We have a file /opt/security/demo.txt on App Server 
+1. Use above mentioned puppet programming file to replace line Welcome to Nautilus Industries! to Welcome to xFusionCorp Industries!, no other data should be altered in this file.
+
+=======================================================================
+
+class replace_text {
+  file {'/opt/security/demo.txt':
+    ensure      => present,
+  }
+  
+  file_line { 'Replace text':
+    ensure      => present,
+    path        => '/opt/security/demo.txt',
+    line        => 'Welcome to xFusionCorp Industries!',
+    match       => '.*Industries!$',
+  }
+}
+
+node 'stapp01.stratos.xfusioncorp.com' {
+   include replace_text
+}
